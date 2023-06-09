@@ -8,3 +8,5 @@ fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
     // Handle any errors that occurred during the request
     console.log('Error:', error);
   });
+
+  
