@@ -3,6 +3,7 @@
     padding: 10px;
     width: 300px;
     margin-left: 50px;
+    display: flex;
   }
   .container input[type="text"],
   .container button {
@@ -22,4 +23,18 @@
   }
   .container li button {
     color: red;
+  }
+  .options-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .option-label {
+    margin-right: 10px;
   }
