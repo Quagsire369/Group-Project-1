@@ -1,3 +1,4 @@
+//API call for cocktail
 fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
   .then(response => response.json())
   .then(data => {
@@ -8,6 +9,16 @@ fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
     // Handle any errors that occurred during the request
     console.log('Error:', error);
   });
+
+// API call for random fact
+fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.log('Error:', error);
+});
 
   // Get references to the input and button elements
 var ingredientInput = document.getElementById("ingredientInput");
