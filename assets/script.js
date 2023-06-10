@@ -25,11 +25,6 @@ var ingredientInput = document.getElementById("ingredientInput");
 var addButton = document.getElementById("addButton");
 var shoppingList = document.getElementById("shoppingList");
 
-// Get references to the input and button elements
-var ingredientInput = document.getElementById("ingredientInput");
-var addButton = document.getElementById("addButton");
-var shoppingList = document.getElementById("shoppingList");
-
 // Add event listener to the button
 addButton.addEventListener("click", function() {
   // Get the input value
