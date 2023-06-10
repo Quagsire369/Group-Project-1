@@ -1,14 +1,21 @@
+var drinkInput = $('#drink-search');
+var drinkSearchButton = document.getElementById('drink-search-button');
+
 //API call for cocktail
-fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
-  .then(response => response.json())
-  .then(data => {
-    // Handle the response data
-    console.log(data); // You can modify this to do something with the data
-  })
-  .catch(error => {
-    // Handle any errors that occurred during the request
-    console.log('Error:', error);
-  });
+drinkSearchButton.addEventListener("click", function(drink) {
+var drink = drinkInput.val().trim();
+
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data
+      console.log(data); // You can modify this to do something with the data
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the request
+      console.log('Error:', error);
+    });
+});
 
 // API call for random fact
 fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
@@ -21,9 +28,9 @@ fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
 });
 
   // Get references to the input and button elements
-var ingredientInput = document.getElementById("ingredientInput");
-var addButton = document.getElementById("addButton");
-var shoppingList = document.getElementById("shoppingList");
+var ingredientInput = document.getElementById("ingredient-input");
+var addButton = document.getElementById("add-button");
+var shoppingList = document.getElementById("shopping-list");
 
 // Add event listener to the button
 addButton.addEventListener("click", function() {
