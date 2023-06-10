@@ -7,36 +7,53 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="./assets/style.css">
-  <title>Document</title>
+  <title>Beverage Builder</title>
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo">Logo</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
-          </ul>
+    <div class="topbar row blue-grey darken-4">
+        <div class="center-align s12">
+            <h1 class="blue-grey-text">What's on Hand?</h1>
         </div>
-    </nav>
-    <section class="container">
-        <h5>Ingredients On Hand</h5>
-        <input type="text" id="ingredientInput" placeholder="Enter an ingredient">
-        <button id="addButton">Add</button>
-       
-        <ul id="shoppingList"></ul>
-      
-    </section>
-  
-
-  
-
-
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="./assets/script.js"></script>
+    </div>
+    <div class="container" style="height: 100%; width: 100%;">
+        <div class="row" style="height: 100%;">
+            <div class="col s3 grey lighten-2 " style="height: 100%;">
+                <!-- Left column content -->
+                <p class="center-align">Ingredients</p>
+                <section class="container">
+                    <h5>Ingredients On Hand</h5>
+                    <input type="text" id="ingredientInput" placeholder="Enter an ingredient">
+                    <button id="addButton">Add</button>
+                    <ul id="shoppingList"></ul>
+                </section>
+            </div>
+            <div class="col s6 grey lighten-3 " style="height: 100%;">
+                <!-- Center column content -->
+                <p class="center-align">Results</p>
+            </div>
+            <div class="col s3 grey darken-2 halign-wrapper" style="height: 100%;">
+                <!-- Right column content -->
+                <p class="center-align">Quotes?</p>
+                <div class="options-container">
+                    <div class="option">
+                        <span class="option-label">Include Alcoholic</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alcoholicToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="option-label">Include Non-Alcoholic</span>
+                        <label class="switch">
+                            <input type="checkbox" id="nonAlcoholicToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>
