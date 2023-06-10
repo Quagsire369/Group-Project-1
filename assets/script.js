@@ -1,19 +1,38 @@
 var drinkInput = $('#drink-search');
 var drinkSearchButton = document.getElementById('drink-search-button');
 
-//API call for cocktail
-drinkSearchButton.addEventListener("click", function(drink) {
-var drink = drinkInput.val().trim();
+var spiritInput = $('#spirit-search');
+var spiritSearchButton = document.getElementById('spirit-search-button');
 
-  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response data
-      console.log(data); // You can modify this to do something with the data
-    })
-    .catch(error => {
-      // Handle any errors that occurred during the request
-      console.log('Error:', error);
+// API call for drink search
+drinkSearchButton.addEventListener("click", function(drink) {
+  var drink = drinkInput.val().trim();
+
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data
+        console.log(data); // You can modify this to do something with the data
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the request
+        console.log('Error:', error);
+      });
+});
+
+// API call for spirit search
+spiritSearchButton.addEventListener("click", function(spirit) {
+  var spirit = spiritInput.val().trim();
+
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${spirit}`)
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data
+        console.log(data); // You can modify this to do something with the data
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the request
+        console.log('Error:', error);
     });
 });
 

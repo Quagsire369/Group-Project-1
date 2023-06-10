@@ -1,4 +1,4 @@
-.container input[type="text"],
+/* .container input[type="text"],
 .container button {
   margin-bottom: 5px;
 }
@@ -30,8 +30,13 @@
 }
 .option-label {
   margin-right: 10px;
-}
+} */
+ body {
+  margin: 0;
+  padding: 0;
+ }
 
-.topbar {
-  height: 10vh;
+h1 {
+  font-size: 8vh;
+  margin: 0;
 }

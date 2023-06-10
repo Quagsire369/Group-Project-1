@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="topbar row blue-grey darken-4">
+    <div class="topbar s12 blue-grey darken-4">
         <div class="center-align s12">
             <h1 class="blue-grey-text">What's on Hand?</h1>
         </div>
@@ -27,6 +27,20 @@
                     <button id="add-button">Add</button>
                     <ul id="shopping-list"></ul>
                 </section>
+                <div class="options-container col 12 col s12">
+                    <div class="option">
+                        <span class="option-label">Include Alcoholic</span>
+                        <label class="switch">
+                            <input type="checkbox" id="alcoholic-toggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="option-label">Include Non-Alcoholic</span>
+                        <label class="switch">
+                            <input type="checkbox" id="nonAlcoholic-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="col s6 grey lighten-3 " style="height: 100%;">
                 <!-- Center column content -->
@@ -43,20 +57,6 @@
             <div class="col s3 grey darken-2 halign-wrapper" style="height: 100%;">
                 <!-- Right column content -->
                 <h4 class="center-align">Quotes?</h4>
-                <div class="options-container">
-                    <div class="option">
-                        <span class="option-label">Include Alcoholic</span>
-                        <label class="switch">
-                            <input type="checkbox" id="alcoholicToggle">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="option-label">Include Non-Alcoholic</span>
-                        <label class="switch">
-                            <input type="checkbox" id="nonAlcoholicToggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
