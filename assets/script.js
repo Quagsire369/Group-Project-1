@@ -3,6 +3,7 @@ var drinkSearchButton = document.getElementById('drink-search-button');
 
 var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
+var drinkapivar; 
 
 // API call for drink search
 drinkSearchButton.addEventListener("click", function (drink) {
@@ -134,6 +135,9 @@ function displayDrinkRecipe(data) {
 };
 
 
+
+
+
 // Get references to the input and button elements
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
@@ -174,3 +178,36 @@ addButton.addEventListener("click", function() {
   // Clear the input field
   ingredientInput.value = "";
 });
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+const apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+
+// Function to fetch cocktails for a specific letter
+async function fetchCocktailsByLetter(letter) {
+  const response = await fetch(apiUrl + letter);
+  const data = await response.json();
+  return data.drinks || []; // Return an empty array if there are no drinks
+}
+
+// Function to fetch all cocktails
+async function fetchAllCocktails() {
+  const allCocktails = [];
+
+  for (const letter of alphabet) {
+    const cocktails = await fetchCocktailsByLetter(letter);
+    allCocktails.push(...cocktails);
+  }
+
+  return allCocktails;
+}
+
+// Call the fetchAllCocktails function
+fetchAllCocktails()
+  .then(cocktails => {
+    console.log(cocktails); // Array of all cocktails
+    console.log('Total cocktails:', cocktails.length); // Total number of cocktails
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  });
+
