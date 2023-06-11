@@ -87,20 +87,22 @@ function displayDrinkRecipeUl(data) {
 
       drinkButtonHeader.addEventListener("click", function(e) {
         var drink = e.target.textContent;
+        displayDrinkRecipeUl(data);
         
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
+          document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems, collapsible);
+          });
           displayDrinkRecipe(data);
         });
       });
     };
 };
 
-$(document).ready(function() {
-  $('.collapsible').collapsible();
-})
 
 // Display recipe on click
 function displayDrinkRecipe(data) {
