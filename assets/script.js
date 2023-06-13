@@ -101,53 +101,10 @@ function displayDrinkRecipeUl(data) {
 
 document.addEventListener("DOMContentLoaded", function () {
     var elems = document.querySelectorAll(".collapsible");
-    var instances = M.Collapsible.init(elems);
+    var instances = M.Collapsible.init(elems, { accordion: true } );
   });
 }
 
-function displayDrinkRecipe(data) {
-  var drinkButtonBody = document.querySelector(".collapsible-body");
-  drinkButtonBody.innerHTML = "";
-
-  var drinkName = document.createElement("h4");
-  drinkName.textContent = data.drinks[0].strDrink;
-
-  var drinkIngredients = document.createElement("ul");
-  for (var i = 1; i <= 15; i++) {
-    var ingredient = data.drinks[0][`strIngredient${i}`];
-    var measure = data.drinks[0][`strMeasure${i}`];
-
-    if (ingredient) {
-      var ingredientItem = document.createElement("li");
-      ingredientItem.textContent = `${ingredient} - ${measure}`;
-      drinkIngredients.append(ingredientItem);
-    }
-  }
-
-  drinkButtonBody.append(drinkName, drinkIngredients);
-}
-
-function displayDrinkRecipe(data) {
-  var drinkButtonBody = document.querySelector(".collapsible-body");
-  drinkButtonBody.innerHTML = "";
-
-  var drinkName = document.createElement("h4");
-  drinkName.textContent = data.drinks[0].strDrink;
-
-  var drinkIngredients = document.createElement("ul");
-  for (var i = 1; i <= 15; i++) {
-    var ingredient = data.drinks[0][`strIngredient${i}`];
-    var measure = data.drinks[0][`strMeasure${i}`];
-
-    if (ingredient) {
-      var ingredientItem = document.createElement("li");
-      ingredientItem.textContent = `${ingredient} - ${measure}`;
-      drinkIngredients.append(ingredientItem);
-    }
-  }
-
-  drinkButtonBody.append(drinkName, drinkIngredients);
-}
 
 // Display recipe on collapsible header click
 function displayDrinkRecipe(data) {
@@ -158,13 +115,18 @@ function displayDrinkRecipe(data) {
 
   // Clear existing contents of ingredientContainer
   ingredientContainer.innerHTML = '';
+  
   //Loop to go through all possible ingredients and measurments
   for (var i = 1; i <= 15; i++) {
     var ingredient = data.drinks[0][`strIngredient${i}`];
     var measure = data.drinks[0][`strMeasure${i}`];
 
-    if (!ingredient || ingredient === "null") {
-      break; // Stop appending if ingredient is null or "null" string
+    if (!measure || measure === "null") {
+      measure = ""; // Set an empty string for null or "null" measurements
+    }
+
+    if (!ingredient) {
+      break; // Stop appending if ingredient is null
     }
 
     var ingredientItem = document.createElement("li");
@@ -176,7 +138,7 @@ function displayDrinkRecipe(data) {
   drinkButtonBody.append(ingredientContainer);
 
   var elems = document.querySelectorAll(".collapsible");
-  var instances = M.Collapsible.init(elems);
+  var instances = M.Collapsible.init(elems, { accordion: false });
 }
 
 
