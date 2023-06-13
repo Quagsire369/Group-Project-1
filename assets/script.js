@@ -92,18 +92,39 @@ function displayDrinkRecipeUl(data) {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
         .then(data => {
-          console.log("data:", data);
+          console.log(data);
+
           displayDrinkRecipe(data);
         });
     });
   }
 
-
-
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     var elems = document.querySelectorAll(".collapsible");
     var instances = M.Collapsible.init(elems);
   });
+}
+
+function displayDrinkRecipe(data) {
+  var drinkButtonBody = document.querySelector(".collapsible-body");
+  drinkButtonBody.innerHTML = "";
+
+  var drinkName = document.createElement("h4");
+  drinkName.textContent = data.drinks[0].strDrink;
+
+  var drinkIngredients = document.createElement("ul");
+  for (var i = 1; i <= 15; i++) {
+    var ingredient = data.drinks[0][`strIngredient${i}`];
+    var measure = data.drinks[0][`strMeasure${i}`];
+
+    if (ingredient) {
+      var ingredientItem = document.createElement("li");
+      ingredientItem.textContent = `${ingredient} - ${measure}`;
+      drinkIngredients.append(ingredientItem);
+    }
+  }
+
+  drinkButtonBody.append(drinkName, drinkIngredients);
 }
 
 function displayDrinkRecipe(data) {
@@ -164,10 +185,6 @@ function displayDrinkRecipe(data) {
   var instances = M.Collapsible.init(elems);
 };
 
-
-
-
-
 // Get references to the input and button elements
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
@@ -219,8 +236,8 @@ console.log(ingredientsArray);
 // button to show possible cocktials
 var showButton = document.getElementById("show-button");
 
-
 // fuction for show possible drinks click
+
 // showButton.addEventListener("click", function () {
 // });
 
@@ -242,6 +259,7 @@ async function fetchAllCocktails() {
     const cocktails = await fetchCocktailsByLetter(letter);
     allCocktails.push(...cocktails);
   }
+
   return allCocktails;
 }
 
