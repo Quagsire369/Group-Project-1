@@ -79,6 +79,7 @@ function displayDrinkRecipeUl(data) {
 
     var drinkButtonBody = document.createElement("div");
     drinkButtonBody.setAttribute("class", "collapsible-body");
+    drinkButtonBody.setAttribute("id", data.drinks[i].idDrink);
 
     drinkButtonContainer.append(drinkButtonItem);
     drinkButtonItem.append(drinkButtonHeader);
@@ -87,14 +88,17 @@ function displayDrinkRecipeUl(data) {
 
     drinkButtonHeader.addEventListener("click", function (e) {
       var drink = e.target.textContent;
+
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          console.log("data:", data);
           displayDrinkRecipe(data);
         });
     });
   }
+
+
 
   document.addEventListener("DOMContentLoaded", function () {
     var elems = document.querySelectorAll(".collapsible");
@@ -124,21 +128,10 @@ function displayDrinkRecipe(data) {
   drinkButtonBody.append(drinkName, drinkIngredients);
 }
 
-// Example usage:
-var mockData = {
-  drinks: [
-    { strDrink: "Mojito" },
-    { strDrink: "Cosmopolitan" },
-    { strDrink: "Martini" }
-  ]
-};
-
-displayDrinkRecipeUl(mockData);
-
-
 // Display recipe on click
 function displayDrinkRecipe(data) {
-  var drinkButtonBody = document.querySelector(".collapsible-body");
+  var drinkButtonBody = document.getElementById(data.drinks[0].idDrink);
+  console.log(drinkButtonBody);
 
   var ingredientContainer = document.createElement("ul");
   var ingredient1 = document.createElement("li");
@@ -159,10 +152,16 @@ function displayDrinkRecipe(data) {
 
   ingredient1.textContent = `${data.drinks[0].strMeasure1} ${data.drinks[0].strIngredient1}`;
   console.log(ingredient1);
+  ingredient2.textContent = `${data.drinks[0].strMeasure2} ${data.drinks[0].strIngredient2}`;
+  console.log("look at this", ingredient2);
+  ingredient3.textContent = `${data.drinks[0].strMeasure3} ${data.drinks[0].strIngredient3}`;
+  ingredient4.textContent = `${data.drinks[0].strMeasure4} ${data.drinks[0].strIngredient4}`;
 
   drinkButtonBody.append(ingredientContainer);
-  ingredientContainer.appendChild(ingredient1);
+  ingredientContainer.appendChild(ingredient1, ingredient2, ingredient3, ingredient4);
 
+  var elems = document.querySelectorAll(".collapsible");
+  var instances = M.Collapsible.init(elems);
 };
 
 
@@ -177,23 +176,20 @@ var ingredientsOnHand = document.getElementById("shopping-list");
 var ingredientsArray = [];
 
 // Add event listener to the button
-addButton.addEventListener("click", function() {
+addButton.addEventListener("click", function () {
   // Get the input value
   var ingredient = ingredientInput.value;
 
   // Create a new list item
   var li = document.createElement("li");
-  
-  
-  // Create a span for the ingredient text
 
   // Create a span for the ingredient text
   var ingredientSpan = document.createElement("span");
   ingredientSpan.textContent = ingredient;
-  
-// pushing to ingredients array
+
+  // pushing to ingredients array
   ingredientsArray.push(ingredientInput.value);
-  
+
   // Create a button for removing the item
   var removeButton = document.createElement("button");
   removeButton.textContent = "x";
@@ -213,12 +209,9 @@ addButton.addEventListener("click", function() {
 
   // Add the list item to the shopping list
   ingredientsOnHand.appendChild(li);
- 
 
   // Clear the input field
   ingredientInput.value = "";
-
-  
 });
 
 console.log(ingredientsArray);
@@ -228,14 +221,8 @@ var showButton = document.getElementById("show-button");
 
 
 // fuction for show possible drinks click
-showButton.addEventListener("click", function (){
-
-  
-
-
-
-});
-
+// showButton.addEventListener("click", function () {
+// });
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
@@ -255,7 +242,6 @@ async function fetchAllCocktails() {
     const cocktails = await fetchCocktailsByLetter(letter);
     allCocktails.push(...cocktails);
   }
-
   return allCocktails;
 }
 
