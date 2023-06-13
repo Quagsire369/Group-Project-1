@@ -76,10 +76,10 @@ function displayDrinkRecipeUl(data) {
     var drinkButtonHeader = document.createElement("div");
     drinkButtonHeader.textContent = data.drinks[i].strDrink;
     drinkButtonHeader.setAttribute("class", "collapsible-header");
-    drinkButtonHeader.setAttribute("id", data.drinks[i].idDrink);
-    console.log(drinkButtonHeader.id);
+
     var drinkButtonBody = document.createElement("div");
     drinkButtonBody.setAttribute("class", "collapsible-body");
+    drinkButtonBody.setAttribute("id", data.drinks[i].idDrink);
 
     drinkButtonContainer.append(drinkButtonItem);
     drinkButtonItem.append(drinkButtonHeader);
@@ -88,18 +88,18 @@ function displayDrinkRecipeUl(data) {
 
     drinkButtonHeader.addEventListener("click", function (e) {
       var drink = e.target.textContent;
+
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
+
           displayDrinkRecipe(data);
         });
     });
   }
 
-
-
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     var elems = document.querySelectorAll(".collapsible");
     var instances = M.Collapsible.init(elems);
   });
@@ -127,9 +127,32 @@ function displayDrinkRecipe(data) {
   drinkButtonBody.append(drinkName, drinkIngredients);
 }
 
-// Display recipe on click
 function displayDrinkRecipe(data) {
   var drinkButtonBody = document.querySelector(".collapsible-body");
+  drinkButtonBody.innerHTML = "";
+
+  var drinkName = document.createElement("h4");
+  drinkName.textContent = data.drinks[0].strDrink;
+
+  var drinkIngredients = document.createElement("ul");
+  for (var i = 1; i <= 15; i++) {
+    var ingredient = data.drinks[0][`strIngredient${i}`];
+    var measure = data.drinks[0][`strMeasure${i}`];
+
+    if (ingredient) {
+      var ingredientItem = document.createElement("li");
+      ingredientItem.textContent = `${ingredient} - ${measure}`;
+      drinkIngredients.append(ingredientItem);
+    }
+  }
+
+  drinkButtonBody.append(drinkName, drinkIngredients);
+}
+
+// Display recipe on click
+function displayDrinkRecipe(data) {
+  var drinkButtonBody = document.getElementById(data.drinks[0].idDrink);
+  console.log(drinkButtonBody);
 
   var ingredientContainer = document.createElement("ul");
   var ingredient1 = document.createElement("li");
@@ -150,20 +173,17 @@ function displayDrinkRecipe(data) {
 
   ingredient1.textContent = `${data.drinks[0].strMeasure1} ${data.drinks[0].strIngredient1}`;
   console.log(ingredient1);
+  ingredient2.textContent = `${data.drinks[0].strMeasure2} ${data.drinks[0].strIngredient2}`;
+  console.log("look at this", ingredient2);
+  ingredient3.textContent = `${data.drinks[0].strMeasure3} ${data.drinks[0].strIngredient3}`;
+  ingredient4.textContent = `${data.drinks[0].strMeasure4} ${data.drinks[0].strIngredient4}`;
 
   drinkButtonBody.append(ingredientContainer);
-  ingredientContainer.appendChild(ingredient1);
-
+  ingredientContainer.appendChild(ingredient1, ingredient2, ingredient3, ingredient4);
 
   var elems = document.querySelectorAll(".collapsible");
   var instances = M.Collapsible.init(elems);
-
-
 };
-
-
-
-
 
 // Get references to the input and button elements
 var ingredientInput = document.getElementById("ingredient-input");
@@ -179,9 +199,6 @@ addButton.addEventListener("click", function () {
 
   // Create a new list item
   var li = document.createElement("li");
-
-
-  // Create a span for the ingredient text
 
   // Create a span for the ingredient text
   var ingredientSpan = document.createElement("span");
@@ -210,11 +227,8 @@ addButton.addEventListener("click", function () {
   // Add the list item to the shopping list
   ingredientsOnHand.appendChild(li);
 
-
   // Clear the input field
   ingredientInput.value = "";
-
-
 });
 
 console.log(ingredientsArray);
@@ -222,11 +236,10 @@ console.log(ingredientsArray);
 // button to show possible cocktials
 var showButton = document.getElementById("show-button");
 
-
 // fuction for show possible drinks click
-showButton.addEventListener("click", function () {
-});
 
+// showButton.addEventListener("click", function () {
+// });
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
