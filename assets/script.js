@@ -63,7 +63,6 @@ function displayFact(data) {
   factContainer.append(fact);
 };
 
-// Display data for drink recipe
 function displayDrinkRecipeUl(data) {
   var drinkRecipeContainer = document.querySelector(".drink-recipe-container");
   drinkRecipeContainer.innerHTML = "";
@@ -76,33 +75,65 @@ function displayDrinkRecipeUl(data) {
 
     var drinkButtonHeader = document.createElement("div");
     drinkButtonHeader.textContent = data.drinks[i].strDrink;
-    drinkButtonHeader.setAttribute("class", "collapsible-header")
+    drinkButtonHeader.setAttribute("class", "collapsible-header");
 
     var drinkButtonBody = document.createElement("div");
     drinkButtonBody.setAttribute("class", "collapsible-body");
 
-    drinkRecipeContainer.append(drinkButtonContainer);
     drinkButtonContainer.append(drinkButtonItem);
     drinkButtonItem.append(drinkButtonHeader);
-    drinkButtonHeader.append(drinkButtonBody);
+    drinkButtonItem.append(drinkButtonBody);
+    drinkRecipeContainer.append(drinkButtonContainer);
 
     drinkButtonHeader.addEventListener("click", function (e) {
       var drink = e.target.textContent;
-      displayDrinkRecipeUl(data);
-
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
-          document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.collapsible');
-            var instances = M.Collapsible.init(elems, collapsible);
-          });
           displayDrinkRecipe(data);
         });
     });
-  };
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var elems = document.querySelectorAll(".collapsible");
+    var instances = M.Collapsible.init(elems);
+  });
+}
+
+function displayDrinkRecipe(data) {
+  var drinkButtonBody = document.querySelector(".collapsible-body");
+  drinkButtonBody.innerHTML = "";
+
+  var drinkName = document.createElement("h4");
+  drinkName.textContent = data.drinks[0].strDrink;
+
+  var drinkIngredients = document.createElement("ul");
+  for (var i = 1; i <= 15; i++) {
+    var ingredient = data.drinks[0][`strIngredient${i}`];
+    var measure = data.drinks[0][`strMeasure${i}`];
+
+    if (ingredient) {
+      var ingredientItem = document.createElement("li");
+      ingredientItem.textContent = `${ingredient} - ${measure}`;
+      drinkIngredients.append(ingredientItem);
+    }
+  }
+
+  drinkButtonBody.append(drinkName, drinkIngredients);
+}
+
+// Example usage:
+var mockData = {
+  drinks: [
+    { strDrink: "Mojito" },
+    { strDrink: "Cosmopolitan" },
+    { strDrink: "Martini" }
+  ]
 };
+
+displayDrinkRecipeUl(mockData);
 
 
 // Display recipe on click
