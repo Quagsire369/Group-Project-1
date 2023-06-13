@@ -76,7 +76,8 @@ function displayDrinkRecipeUl(data) {
     var drinkButtonHeader = document.createElement("div");
     drinkButtonHeader.textContent = data.drinks[i].strDrink;
     drinkButtonHeader.setAttribute("class", "collapsible-header");
-
+    drinkButtonHeader.setAttribute("id", data.drinks[i].idDrink);
+    console.log(drinkButtonHeader.id);
     var drinkButtonBody = document.createElement("div");
     drinkButtonBody.setAttribute("class", "collapsible-body");
 
@@ -95,6 +96,8 @@ function displayDrinkRecipeUl(data) {
         });
     });
   }
+
+
 
   document.addEventListener("DOMContentLoaded", function () {
     var elems = document.querySelectorAll(".collapsible");
@@ -124,18 +127,6 @@ function displayDrinkRecipe(data) {
   drinkButtonBody.append(drinkName, drinkIngredients);
 }
 
-// Example usage:
-var mockData = {
-  drinks: [
-    { strDrink: "Mojito" },
-    { strDrink: "Cosmopolitan" },
-    { strDrink: "Martini" }
-  ]
-};
-
-displayDrinkRecipeUl(mockData);
-
-
 // Display recipe on click
 function displayDrinkRecipe(data) {
   var drinkButtonBody = document.querySelector(".collapsible-body");
@@ -163,6 +154,11 @@ function displayDrinkRecipe(data) {
   drinkButtonBody.append(ingredientContainer);
   ingredientContainer.appendChild(ingredient1);
 
+
+  var elems = document.querySelectorAll(".collapsible");
+  var instances = M.Collapsible.init(elems);
+
+
 };
 
 
@@ -177,23 +173,23 @@ var ingredientsOnHand = document.getElementById("shopping-list");
 var ingredientsArray = [];
 
 // Add event listener to the button
-addButton.addEventListener("click", function() {
+addButton.addEventListener("click", function () {
   // Get the input value
   var ingredient = ingredientInput.value;
 
   // Create a new list item
   var li = document.createElement("li");
-  
-  
+
+
   // Create a span for the ingredient text
 
   // Create a span for the ingredient text
   var ingredientSpan = document.createElement("span");
   ingredientSpan.textContent = ingredient;
-  
-// pushing to ingredients array
+
+  // pushing to ingredients array
   ingredientsArray.push(ingredientInput.value);
-  
+
   // Create a button for removing the item
   var removeButton = document.createElement("button");
   removeButton.textContent = "x";
@@ -213,12 +209,12 @@ addButton.addEventListener("click", function() {
 
   // Add the list item to the shopping list
   ingredientsOnHand.appendChild(li);
- 
+
 
   // Clear the input field
   ingredientInput.value = "";
 
-  
+
 });
 
 console.log(ingredientsArray);
@@ -228,12 +224,7 @@ var showButton = document.getElementById("show-button");
 
 
 // fuction for show possible drinks click
-showButton.addEventListener("click", function (){
-
-  
-
-
-
+showButton.addEventListener("click", function () {
 });
 
 
