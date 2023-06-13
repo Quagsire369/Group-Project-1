@@ -62,7 +62,7 @@ function displayFact(data) {
   fact.textContent = data.text;
   factContainer.append(fact);
 };
-
+//Display the unordered list and creat the collapsible structure
 function displayDrinkRecipeUl(data) {
   var drinkRecipeContainer = document.querySelector(".drink-recipe-container");
   drinkRecipeContainer.innerHTML = "";
@@ -86,6 +86,8 @@ function displayDrinkRecipeUl(data) {
     drinkButtonItem.append(drinkButtonBody);
     drinkRecipeContainer.append(drinkButtonContainer);
 
+
+
     drinkButtonHeader.addEventListener("click", function (e) {
       var drink = e.target.textContent;
 
@@ -99,9 +101,10 @@ function displayDrinkRecipeUl(data) {
     });
   }
 
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
     var elems = document.querySelectorAll(".collapsible");
-    var instances = M.Collapsible.init(elems, { accordion: true } );
+    var instances = M.Collapsible.init(elems, {});
+
   });
 }
 
@@ -115,7 +118,7 @@ function displayDrinkRecipe(data) {
 
   // Clear existing contents of ingredientContainer
   ingredientContainer.innerHTML = '';
-  
+
   //Loop to go through all possible ingredients and measurments
   for (var i = 1; i <= 15; i++) {
     var ingredient = data.drinks[0][`strIngredient${i}`];
@@ -134,11 +137,12 @@ function displayDrinkRecipe(data) {
     ingredientContainer.append(ingredientItem);
   }
   // Clear existing contents of drinkButtonBody
-  drinkButtonBody.innerHTML = ''; 
+  drinkButtonBody.innerHTML = '';
   drinkButtonBody.append(ingredientContainer);
 
   var elems = document.querySelectorAll(".collapsible");
-  var instances = M.Collapsible.init(elems, { accordion: false });
+  var instances = M.Collapsible.init(elems, {});
+
 }
 
 
