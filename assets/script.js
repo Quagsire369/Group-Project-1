@@ -149,41 +149,37 @@ function displayDrinkRecipe(data) {
   drinkButtonBody.append(drinkName, drinkIngredients);
 }
 
-// Display recipe on click
+// Display recipe on collapsible header click
 function displayDrinkRecipe(data) {
   var drinkButtonBody = document.getElementById(data.drinks[0].idDrink);
-  console.log(drinkButtonBody);
+  // console.log(drinkButtonBody);
 
   var ingredientContainer = document.createElement("ul");
-  var ingredient1 = document.createElement("li");
-  var ingredient2 = document.createElement("li");
-  var ingredient3 = document.createElement("li");
-  var ingredient4 = document.createElement("li");
-  var ingredient5 = document.createElement("li");
-  var ingredient6 = document.createElement("li");
-  var ingredient7 = document.createElement("li");
-  var ingredient8 = document.createElement("li");
-  var ingredient9 = document.createElement("li");
-  var ingredient10 = document.createElement("li");
-  var ingredient11 = document.createElement("li");
-  var ingredient12 = document.createElement("li");
-  var ingredient13 = document.createElement("li");
-  var ingredient14 = document.createElement("li");
-  var ingredient15 = document.createElement("li");
 
-  ingredient1.textContent = `${data.drinks[0].strMeasure1} ${data.drinks[0].strIngredient1}`;
-  console.log(ingredient1);
-  ingredient2.textContent = `${data.drinks[0].strMeasure2} ${data.drinks[0].strIngredient2}`;
-  console.log("look at this", ingredient2);
-  ingredient3.textContent = `${data.drinks[0].strMeasure3} ${data.drinks[0].strIngredient3}`;
-  ingredient4.textContent = `${data.drinks[0].strMeasure4} ${data.drinks[0].strIngredient4}`;
+  // Clear existing contents of ingredientContainer
+  ingredientContainer.innerHTML = '';
+  //Loop to go through all possible ingredients and measurments
+  for (var i = 1; i <= 15; i++) {
+    var ingredient = data.drinks[0][`strIngredient${i}`];
+    var measure = data.drinks[0][`strMeasure${i}`];
 
+    if (!ingredient || ingredient === "null") {
+      break; // Stop appending if ingredient is null or "null" string
+    }
+
+    var ingredientItem = document.createElement("li");
+    ingredientItem.textContent = `${measure} ${ingredient}`;
+    ingredientContainer.append(ingredientItem);
+  }
+  // Clear existing contents of drinkButtonBody
+  drinkButtonBody.innerHTML = ''; 
   drinkButtonBody.append(ingredientContainer);
-  ingredientContainer.append(ingredient1, ingredient2, ingredient3, ingredient4);
 
   var elems = document.querySelectorAll(".collapsible");
   var instances = M.Collapsible.init(elems);
-};
+}
+
+
 
 // Get references to the input and button elements
 var ingredientInput = document.getElementById("ingredient-input");
