@@ -179,7 +179,7 @@ function displayDrinkRecipe(data) {
   ingredient4.textContent = `${data.drinks[0].strMeasure4} ${data.drinks[0].strIngredient4}`;
 
   drinkButtonBody.append(ingredientContainer);
-  ingredientContainer.appendChild(ingredient1, ingredient2, ingredient3, ingredient4);
+  ingredientContainer.append(ingredient1, ingredient2, ingredient3, ingredient4);
 
   var elems = document.querySelectorAll(".collapsible");
   var instances = M.Collapsible.init(elems);
