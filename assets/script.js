@@ -92,7 +92,7 @@ function displayDrinkRecipeUl(data) {
     var instances = M.Collapsible.init(elems, {});
 
     drinkButtonHeader.addEventListener("click", function (e) {
-    var drink = e.target.textContent;
+      var drink = e.target.textContent;
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
@@ -119,6 +119,8 @@ function displayDrinkRecipe(data) {
     var ingredient = data.drinks[0][`strIngredient${i}`];
     var measure = data.drinks[0][`strMeasure${i}`];
 
+
+
     if (!measure || measure === "null") {
       measure = ""; // Set an empty string for null or "null" measurements
     }
@@ -130,7 +132,15 @@ function displayDrinkRecipe(data) {
     var ingredientItem = document.createElement("li");
     ingredientItem.textContent = `${measure} ${ingredient}`;
     ingredientContainer.append(ingredientItem);
+
+  
+
   };
+  //append instructions to ingredient container
+  var instructions = data.drinks[0].strInstructions;
+  var instructionsItem = document.createElement("blockquote");
+  instructionsItem.textContent = instructions;
+  ingredientContainer.append(instructionsItem);
 
   // Clear existing contents of drinkButtonBody
   drinkButtonBody.innerHTML = '';
@@ -176,8 +186,8 @@ addButton.addEventListener("click", function () {
   removeButton.style.color = "red";
   removeButton.addEventListener("click", function () {
 
-  // Remove the corresponding list item when clicked
-  ingredientsOnHand.removeChild(li);
+    // Remove the corresponding list item when clicked
+    ingredientsOnHand.removeChild(li);
 
   });
 
@@ -200,9 +210,9 @@ addButton.addEventListener("click", function () {
 var showButton = document.getElementById("show-button");
 
 // Adds event listener for click on show possible cocktails button, makes API call for multifactor ingredients list
-showButton.addEventListener("click", function() {
+showButton.addEventListener("click", function () {
 
-getMultiFactor();
+  getMultiFactor();
 });
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -239,17 +249,17 @@ fetchAllCocktails()
 
 // Makes API call for ingredient inputs
 function getMultiFactor() {
-  
+
   console.log(advancedApiUrl);
   fetch(advancedApiUrl)
-        .then(response => response.json())
-        .then(data => {
-          console.log("multifactor", data);
-        });
+    .then(response => response.json())
+    .then(data => {
+      console.log("multifactor", data);
+    });
 };
 
 // Finds spaces in ingredient inputs and replaces with underscores
-function handleApiUrlSpaces (str) {
+function handleApiUrlSpaces(str) {
   let newstr = "";
   for (i = 0; i < str.length; i++) {
     if (str[i] === " ") {
