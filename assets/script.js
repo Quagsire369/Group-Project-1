@@ -4,6 +4,7 @@ var drinkSearchButton = document.getElementById('drink-search-button');
 var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
+var advancedApiUrl;
 
 // API call for drink search
 drinkSearchButton.addEventListener("click", function (drink) {
@@ -62,7 +63,8 @@ function displayFact(data) {
   fact.textContent = data.text;
   factContainer.append(fact);
 };
-//Display the unordered list and creat the collapsible structure
+
+//Display the unordered list of drink results and create the collapsible structure
 function displayDrinkRecipeUl(data) {
   var drinkRecipeContainer = document.querySelector(".drink-recipe-container");
   drinkRecipeContainer.innerHTML = "";
@@ -86,10 +88,11 @@ function displayDrinkRecipeUl(data) {
     drinkButtonItem.append(drinkButtonBody);
     drinkRecipeContainer.append(drinkButtonContainer);
 
-
+    var elems = document.querySelectorAll(".collapsible");
+    var instances = M.Collapsible.init(elems, {});
 
     drinkButtonHeader.addEventListener("click", function (e) {
-      var drink = e.target.textContent;
+    var drink = e.target.textContent;
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
@@ -99,20 +102,12 @@ function displayDrinkRecipeUl(data) {
           displayDrinkRecipe(data);
         });
     });
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    var elems = document.querySelectorAll(".collapsible");
-    var instances = M.Collapsible.init(elems, {});
-
-  });
-}
-
+  };
+};
 
 // Display recipe on collapsible header click
 function displayDrinkRecipe(data) {
   var drinkButtonBody = document.getElementById(data.drinks[0].idDrink);
-  // console.log(drinkButtonBody);
 
   var ingredientContainer = document.createElement("ul");
 
@@ -135,27 +130,25 @@ function displayDrinkRecipe(data) {
     var ingredientItem = document.createElement("li");
     ingredientItem.textContent = `${measure} ${ingredient}`;
     ingredientContainer.append(ingredientItem);
-  }
+  };
+
   // Clear existing contents of drinkButtonBody
   drinkButtonBody.innerHTML = '';
   drinkButtonBody.append(ingredientContainer);
-
-  var elems = document.querySelectorAll(".collapsible");
-  var instances = M.Collapsible.init(elems, {});
-
-}
-
-
+};
 
 // Get references to the input and button elements
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
 var ingredientsOnHand = document.getElementById("shopping-list");
-// added ingredients array
+
+// Added ingredients array
 var ingredientsArray = [];
+var allIngredients = ingredientsArray;
 
 // Add event listener to the button
 addButton.addEventListener("click", function () {
+
   // Get the input value
   var ingredient = ingredientInput.value;
 
@@ -166,16 +159,26 @@ addButton.addEventListener("click", function () {
   var ingredientSpan = document.createElement("span");
   ingredientSpan.textContent = ingredient;
 
-  // pushing to ingredients array
+  // Pushing to ingredients array
   ingredientsArray.push(ingredientInput.value);
+
+  // Updates ingredients array, joining all strings with commas
+  allIngredients = ingredientsArray.join(",");
+
+  // Updates advancedApiUrl API call with ingredient input values in all ingredients array
+  advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
+  console.log(ingredientsArray);
+  console.log(allIngredients);
 
   // Create a button for removing the item
   var removeButton = document.createElement("button");
   removeButton.textContent = "x";
   removeButton.style.color = "red";
   removeButton.addEventListener("click", function () {
-    // Remove the corresponding list item when clicked
-    ingredientsOnHand.removeChild(li);
+
+  // Remove the corresponding list item when clicked
+  ingredientsOnHand.removeChild(li);
+
   });
 
   // Add a space between the ingredient and the remove button
@@ -193,15 +196,14 @@ addButton.addEventListener("click", function () {
   ingredientInput.value = "";
 });
 
-console.log(ingredientsArray);
-
-// button to show possible cocktials
+// Button to show possible cocktials
 var showButton = document.getElementById("show-button");
 
-// fuction for show possible drinks click
+// Adds event listener for click on show possible cocktails button, makes API call for multifactor ingredients list
+showButton.addEventListener("click", function() {
 
-// showButton.addEventListener("click", function () {
-// });
+getMultiFactor();
+});
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
@@ -235,16 +237,26 @@ fetchAllCocktails()
     console.log('Error:', error);
   });
 
-// for (let i = 0; i < length.allCocktails; i++) {
+// Makes API call for ingredient inputs
+function getMultiFactor() {
+  
+  console.log(advancedApiUrl);
+  fetch(advancedApiUrl)
+        .then(response => response.json())
+        .then(data => {
+          console.log("multifactor", data);
+        });
+};
 
-//   var test = allCocktails[i].strIngredient1;
-//   console.log(test);
-
-
-
-// }
-
-
-
-
-
+// Finds spaces in ingredient inputs and replaces with underscores
+function handleApiUrlSpaces (str) {
+  let newstr = "";
+  for (i = 0; i < str.length; i++) {
+    if (str[i] === " ") {
+      newstr += "_";
+    } else {
+      newstr += str[i];
+    };
+  };
+  return newstr;
+};
