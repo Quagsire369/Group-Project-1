@@ -188,6 +188,7 @@ addButton.addEventListener("click", function () {
     // Remove the corresponding list item when clicked
     ingredientsOnHand.removeChild(li);
 
+
     // Remove the specific ingredient from the ingredientsArray
     var index = ingredientsArray.indexOf(ingredient);
     
@@ -196,6 +197,7 @@ addButton.addEventListener("click", function () {
 
     advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
     console.log(ingredientsArray);
+
     
   });
 
@@ -219,7 +221,7 @@ var showButton = document.getElementById("show-button");
 
 // Adds event listener for click on show possible cocktails button, makes API call for multifactor ingredients list
 showButton.addEventListener("click", function () {
-
+  
   getMultiFactor();
 });
 
@@ -263,7 +265,9 @@ function getMultiFactor() {
     .then(response => response.json())
     .then(data => {
       console.log("multifactor", data);
+      displayDrinkRecipeUl(data);
     });
+    
 };
 
 // Finds spaces in ingredient inputs and replaces with underscores
