@@ -148,6 +148,7 @@ function displayDrinkRecipe(data) {
 };
 
 // Get references to the input and button elements
+
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
 var ingredientsOnHand = document.getElementById("shopping-list");
@@ -158,7 +159,6 @@ var allIngredients = ingredientsArray;
 
 // Add event listener to the button
 addButton.addEventListener("click", function () {
-
   // Get the input value
   var ingredient = ingredientInput.value;
 
@@ -185,9 +185,19 @@ addButton.addEventListener("click", function () {
   removeButton.textContent = "x";
   removeButton.style.color = "red";
   removeButton.addEventListener("click", function () {
-
     // Remove the corresponding list item when clicked
     ingredientsOnHand.removeChild(li);
+
+
+    // Remove the specific ingredient from the ingredientsArray
+    var index = ingredientsArray.indexOf(ingredient);
+    
+    ingredientsArray.splice(index, 1);
+    allIngredients = ingredientsArray;
+
+    advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
+    console.log(ingredientsArray);
+
     
   });
 
