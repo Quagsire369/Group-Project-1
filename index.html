@@ -1,22 +1,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="./assets/style.css">
-  <title>Beverage Builder</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Beverage Builder</title>
 </head>
 
 <body>
 
-    <div class="topbar s12 blue-grey darken-4">
-        <div class="center-align s12">
-            <h1 class="blue-grey-text">What's on Hand?</h1>
+    <nav>
+        <div class="nav-wrapper purple darken-2">
+            <a href="#" class="brand-logo center">What's on Hand</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="myCocktails.html">My Cocktails</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
 
     <div class="container" style="height: 100%; width: 100%;">
         <div class="row" style="height: 100%;">
@@ -27,34 +30,21 @@
                 <section class="container">
                     <h5>Ingredients On Hand</h5>
                     <input type="text" id="ingredient-input" placeholder="Enter an ingredient">
-                    <button id="add-button">Add</button>
-                    <button id="show-button">Show Possible Drinks</button>
+                    <button id="add-button" class="waves-effect waves-light btn-small">Add</button>
+                    <br>
+                    <br>
+                    <button id="show-button" class="waves-effect waves-light btn-small">Show Possible Drinks</button>
                     <ul id="shopping-list"></ul>
                 </section>
                 <div class="options-container col 12 col s12">
-                    <div class="option">
-                        <span class="option-label">Include Alcoholic</span>
-                        <label class="switch">
-                            <input type="checkbox" id="alcoholic-toggle">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="option-label">Include Non-Alcoholic</span>
-                        <label class="switch">
-                            <input type="checkbox" id="nonAlcoholic-toggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
+
                 </div>
             </div>
             <div class="col s6 grey lighten-3 " style="height: 100%;">
                 <!-- Center column content -->
                 <div>
                     <input type="text" id="drink-search" placeholder="Enter a drink">
-                    <button id="drink-search-button">Search</button>
-                </div>
-                <div>
-                    <input type="text" id="spirit-search" placeholder="Enter a spirit">
-                    <button id="spirit-search-button">Search</button>
+                    <button id="drink-search-button" class="waves-effect waves-light btn-small">Search</button>
                 </div>
                 <h4 class="center-align">Results</h4>
                 <div class="drink-recipe-container col s12"></div>
@@ -62,8 +52,10 @@
             <div class="col s3 grey lighten-2 halign-wrapper" style="height: 100%;">
                 <!-- Right column content -->
                 <h4 class="center-align">Ice-Breaker</h4>
-                <p>Have you ever been at a party and ran out of interesting things to talk about? We have you covered with our handy random fact generator! Take it for a spin and you will be the life of the party!!!</p>
-                <button id="generate-fact">Click for an Ice-Breaker!</button>
+                <p>Have you ever been at a party and ran out of interesting things to talk about? We have you covered
+                    with our handy random fact generator! Take it for a spin and you will be the life of the party!!!
+                </p>
+                <button id="generate-fact" class="waves-effect waves-light btn-small">Click for an Ice-Breaker!</button>
                 <div class="fact-container"></div>
             </div>
         </div>
