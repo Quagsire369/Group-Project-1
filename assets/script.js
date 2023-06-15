@@ -188,7 +188,7 @@ addButton.addEventListener("click", function () {
 
     // Remove the corresponding list item when clicked
     ingredientsOnHand.removeChild(li);
-
+    
   });
 
   // Add a space between the ingredient and the remove button
@@ -211,7 +211,7 @@ var showButton = document.getElementById("show-button");
 
 // Adds event listener for click on show possible cocktails button, makes API call for multifactor ingredients list
 showButton.addEventListener("click", function () {
-
+  
   getMultiFactor();
 });
 
@@ -255,7 +255,9 @@ function getMultiFactor() {
     .then(response => response.json())
     .then(data => {
       console.log("multifactor", data);
+      displayDrinkRecipeUl(data);
     });
+    
 };
 
 // Finds spaces in ingredient inputs and replaces with underscores
