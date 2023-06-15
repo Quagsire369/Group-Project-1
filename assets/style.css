@@ -41,3 +41,7 @@ h1 {
   font-size: 8vh;
   margin: 0;
 }
+
+blockquote {
+  font-style: italic;
+}
