@@ -6,6 +6,10 @@ var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
+//Modal initialization
+$(document).ready(function(){
+  $('.modal').modal();
+});
 
 // API call for drink search
 drinkSearchButton.addEventListener("click", function (drink) {
