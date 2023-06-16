@@ -201,7 +201,7 @@ addButton.addEventListener("click", function () {
 
     ingredientsArray.splice(index, 1);
     allIngredients = ingredientsArray;
-
+    allIngredients = ingredientsArray.join(",");
     advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
     console.log(ingredientsArray);
 
@@ -248,6 +248,7 @@ function getMultiFactor() {
         centerContent.textContent = "Please simplify or alter your ingredients. There are no drinks made with all of your ingredients."
         return;
       }
+      centerContent.textContent = "";
       displayDrinkRecipeUl(data);
     });
 
