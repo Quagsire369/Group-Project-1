@@ -1,5 +1,6 @@
 var drinkInput = $('#drink-search');
 var drinkSearchButton = document.getElementById('drink-search-button');
+var centerContent = document.getElementById('centerContent')
 
 var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
@@ -24,6 +25,7 @@ drinkSearchButton.addEventListener("click", function (drink) {
     .catch(error => {
       // Handle any errors that occurred during the request
       console.log('Error:', error);
+      centerContent.textContent = "Sorry there were no results for your search please try again."
     });
 });
 
@@ -238,6 +240,10 @@ function getMultiFactor() {
     .then(response => response.json())
     .then(data => {
       console.log("multifactor", data);
+      if (data.drinks === "None Found") {
+        centerContent.textContent = "Please simplify or alter your ingredients. There are no drinks made with all of your ingredients."
+        return;
+      }
       displayDrinkRecipeUl(data);
     });
 
