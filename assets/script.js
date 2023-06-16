@@ -7,7 +7,7 @@ var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
 //Modal initialization
-$(document).ready(function(){
+$(document).ready(function () {
   $('.modal').modal();
 });
 
@@ -142,6 +142,17 @@ function displayDrinkRecipe(data) {
   thumbNailElement.src = thumbNail;
   thumbNailElement.style.height = '150px';
   ingredientContainer.append(thumbNailElement);
+
+  var myCocktailBtn = document.createElement("a");
+  
+  myCocktailBtn.classList.add("btn-floating", "pulse", "right", "bottom");
+
+  var myCocktailIcon= document.createElement("i");
+  myCocktailIcon.textContent = "add";
+  myCocktailIcon.classList.add("material-icons");
+
+  myCocktailBtn.appendChild(myCocktailIcon);
+  ingredientContainer.append(myCocktailBtn);
 
   // Clear existing contents of drinkButtonBody
   drinkButtonBody.innerHTML = '';
