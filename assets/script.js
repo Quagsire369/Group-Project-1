@@ -1,14 +1,23 @@
 var drinkInput = $('#drink-search');
 var drinkSearchButton = document.getElementById('drink-search-button');
+var centerContent = document.getElementById('centerContent')
 
 var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
+//Modal initialization
+$(document).ready(function(){
+  $('.modal').modal();
+});
 
 // API call for drink search
 drinkSearchButton.addEventListener("click", function (drink) {
   var drink = drinkInput.val().trim();
+
+  if (drink === "") {
+    return;
+  }
 
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then(response => response.json())
@@ -20,6 +29,7 @@ drinkSearchButton.addEventListener("click", function (drink) {
     .catch(error => {
       // Handle any errors that occurred during the request
       console.log('Error:', error);
+      centerContent.textContent = "Sorry there were no results for your search please try again."
     });
 });
 
@@ -118,7 +128,7 @@ function displayDrinkRecipe(data) {
     ingredientItem.textContent = `${measure} ${ingredient}`;
     ingredientContainer.append(ingredientItem);
 
-  
+
 
   };
   //append instructions to ingredient container
@@ -153,8 +163,12 @@ addButton.addEventListener("click", function () {
   // Get the input value
   var ingredient = ingredientInput.value;
 
+  if (ingredient === "") {
+    return;
+  }
   // Create a new list item
   var li = document.createElement("li");
+  li.style.marginBottom = "10px";
 
   // Create a span for the ingredient text
   var ingredientSpan = document.createElement("span");
@@ -175,6 +189,7 @@ addButton.addEventListener("click", function () {
   var removeButton = document.createElement("i");
   removeButton.classList.add("material-icons");
   removeButton.textContent = "cancel";
+  removeButton.style.float = "right";
   // removeButton.style.color = "red";
   removeButton.addEventListener("click", function () {
     // Remove the corresponding list item when clicked
@@ -183,14 +198,14 @@ addButton.addEventListener("click", function () {
 
     // Remove the specific ingredient from the ingredientsArray
     var index = ingredientsArray.indexOf(ingredient);
-    
+
     ingredientsArray.splice(index, 1);
     allIngredients = ingredientsArray;
 
     advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
     console.log(ingredientsArray);
 
-    
+
   });
 
   // Add a space between the ingredient and the remove button
@@ -213,7 +228,9 @@ var showButton = document.getElementById("show-button");
 
 // Adds event listener for click on show possible cocktails button, makes API call for multifactor ingredients list
 showButton.addEventListener("click", function () {
-  
+  if (ingredientsArray.length === 0) {
+    return;
+  }
   getMultiFactor();
 });
 
@@ -227,9 +244,13 @@ function getMultiFactor() {
     .then(response => response.json())
     .then(data => {
       console.log("multifactor", data);
+      if (data.drinks === "None Found") {
+        centerContent.textContent = "Please simplify or alter your ingredients. There are no drinks made with all of your ingredients."
+        return;
+      }
       displayDrinkRecipeUl(data);
     });
-    
+
 };
 
 // Finds spaces in ingredient inputs and replaces with underscores
