@@ -155,6 +155,7 @@ addButton.addEventListener("click", function () {
 
   // Create a new list item
   var li = document.createElement("li");
+  li.style.marginBottom = "10px";
 
   // Create a span for the ingredient text
   var ingredientSpan = document.createElement("span");
@@ -175,6 +176,7 @@ addButton.addEventListener("click", function () {
   var removeButton = document.createElement("i");
   removeButton.classList.add("material-icons");
   removeButton.textContent = "cancel";
+  removeButton.style.float = "right";
   // removeButton.style.color = "red";
   removeButton.addEventListener("click", function () {
     // Remove the corresponding list item when clicked
