@@ -6,6 +6,7 @@ var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
+
 //Modal initialization
 $(document).ready(function () {
   $('.modal').modal();
@@ -29,7 +30,7 @@ drinkSearchButton.addEventListener("click", function (drink) {
     .catch(error => {
       // Handle any errors that occurred during the request
       console.log('Error:', error);
-      centerContent.textContent = "Sorry there were no results for your search please try again."
+      centerContent.textContent = "Sorry there were no results for your search, please try again."
     });
 });
 
@@ -95,7 +96,14 @@ function displayDrinkRecipeUl(data) {
           console.log(data);
 
           displayDrinkRecipe(data);
+
+        $('.material-icons').on('click', function() {
+          
+          savedCocktailsArr.push(`${drink}`);
+          console.log(savedCocktailsArr);
+          saveMyCocktails(data);
         });
+      });    
     });
   };
 };
@@ -127,10 +135,8 @@ function displayDrinkRecipe(data) {
     var ingredientItem = document.createElement("li");
     ingredientItem.textContent = `${measure} ${ingredient}`;
     ingredientContainer.append(ingredientItem);
-
-
-
   };
+
   //append instructions to ingredient container
   var instructions = data.drinks[0].strInstructions;
   var instructionsItem = document.createElement("blockquote");
@@ -160,7 +166,6 @@ function displayDrinkRecipe(data) {
 };
 
 // Get references to the input and button elements
-
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
 var ingredientsOnHand = document.getElementById("shopping-list");
@@ -201,7 +206,7 @@ addButton.addEventListener("click", function () {
   removeButton.classList.add("material-icons");
   removeButton.textContent = "cancel";
   removeButton.style.float = "right";
-  // removeButton.style.color = "red";
+
   removeButton.addEventListener("click", function () {
     // Remove the corresponding list item when clicked
     ingredientsOnHand.removeChild(li);
@@ -215,8 +220,6 @@ addButton.addEventListener("click", function () {
     allIngredients = ingredientsArray.join(",");
     advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
     console.log(ingredientsArray);
-
-
   });
 
   // Add a space between the ingredient and the remove button
@@ -244,8 +247,6 @@ showButton.addEventListener("click", function () {
   }
   getMultiFactor();
 });
-
-
 
 // Makes API call for ingredient inputs
 function getMultiFactor() {
@@ -277,3 +278,22 @@ function handleApiUrlSpaces(str) {
   };
   return newstr;
 };
+
+// Array to store saved drinks in local storage
+var savedCocktailsArr = [];
+
+// Sets array to local storage
+function saveMyCocktails () {
+  localStorage.setItem("savedCocktailsArr", JSON.stringify(savedCocktailsArr));
+};
+
+// Gets/updates array with new info
+function getMyCocktails() {
+  var update = JSON.parse(localStorage.getItem("savedCocktailsArr"));
+
+  if (update) {
+    savedCocktailsArr = update;
+  };
+};
+
+getMyCocktails();
