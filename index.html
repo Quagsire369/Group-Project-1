@@ -11,12 +11,17 @@
 </head>
 
 <body>
-
+    <ul id="dropdown1" class="dropdown-content">
+        <!-- <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li> -->
+    </ul>
     <nav>
         <div class="nav-wrapper deep-purple">
             <img src="./assets/images/v2.png" class="brand-logo center" height="60px"></img>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="myCocktails.html">My Cocktails</a></li>
+                <li id="my-cocktails"><a class="dropdown-trigger" href="#!" data-target="dropdown1">My Cocktails<i class="material-icons right">arrow_drop_down</i></a></li>
                 <li ><a class= "modal-trigger" href="#modal1">Help</a></li>
             </ul>
         </div>
