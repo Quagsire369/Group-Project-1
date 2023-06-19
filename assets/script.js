@@ -1,11 +1,14 @@
 var drinkInput = $('#drink-search');
 var drinkSearchButton = document.getElementById('drink-search-button');
 var centerContent = document.getElementById('centerContent')
-
 var spiritInput = $('#spirit-search');
 var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
+
+// Dropdown initialization on click
+$(".dropdown-trigger").dropdown({hover: false});
+
 //Modal initialization
 $(document).ready(function () {
   $('.modal').modal();
@@ -29,7 +32,7 @@ drinkSearchButton.addEventListener("click", function (drink) {
     .catch(error => {
       // Handle any errors that occurred during the request
       console.log('Error:', error);
-      centerContent.textContent = "Sorry there were no results for your search please try again."
+      centerContent.textContent = "Sorry there were no results for your search, please try again."
     });
 });
 
@@ -66,16 +69,16 @@ function displayDrinkRecipeUl(data) {
 
   for (var i = 0; i < data.drinks.length; i++) {
     var drinkButtonContainer = document.createElement("ul");
-    drinkButtonContainer.setAttribute("class", "collapsible col s12");
+    drinkButtonContainer.classList.add("collapsible", "col", "s12");
 
     var drinkButtonItem = document.createElement("li");
 
     var drinkButtonHeader = document.createElement("div");
     drinkButtonHeader.textContent = data.drinks[i].strDrink;
-    drinkButtonHeader.setAttribute("class", "collapsible-header");
+    drinkButtonHeader.classList.add("collapsible-header");
 
     var drinkButtonBody = document.createElement("div");
-    drinkButtonBody.setAttribute("class", "collapsible-body");
+    drinkButtonBody.classList.add("collapsible-body");
     drinkButtonBody.setAttribute("id", data.drinks[i].idDrink);
 
     drinkButtonContainer.append(drinkButtonItem);
@@ -95,7 +98,20 @@ function displayDrinkRecipeUl(data) {
           console.log(data);
 
           displayDrinkRecipe(data);
+
+        $('.material-icons').on('click', function() {
+          
+          if (savedCocktailsArr.includes(`${drink}`)) {
+            savedCocktailsArr = savedCocktailsArr;
+          } else {
+          savedCocktailsArr.push(`${drink}`);
+          console.log(savedCocktailsArr);
+          }
+          saveMyCocktails(data);
+          getMyCocktails();
+          displayMyCocktails();
         });
+      });    
     });
   };
 };
@@ -114,8 +130,6 @@ function displayDrinkRecipe(data) {
     var ingredient = data.drinks[0][`strIngredient${i}`];
     var measure = data.drinks[0][`strMeasure${i}`];
 
-
-
     if (!measure || measure === "null") {
       measure = ""; // Set an empty string for null or "null" measurements
     }
@@ -127,10 +141,8 @@ function displayDrinkRecipe(data) {
     var ingredientItem = document.createElement("li");
     ingredientItem.textContent = `${measure} ${ingredient}`;
     ingredientContainer.append(ingredientItem);
-
-
-
   };
+
   //append instructions to ingredient container
   var instructions = data.drinks[0].strInstructions;
   var instructionsItem = document.createElement("blockquote");
@@ -160,7 +172,6 @@ function displayDrinkRecipe(data) {
 };
 
 // Get references to the input and button elements
-
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
 var ingredientsOnHand = document.getElementById("shopping-list");
@@ -193,15 +204,13 @@ addButton.addEventListener("click", function () {
 
   // Updates advancedApiUrl API call with ingredient input values in all ingredients array
   advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
-  console.log(ingredientsArray);
-  console.log(allIngredients);
 
   // Create a button for removing the item
   var removeButton = document.createElement("i");
   removeButton.classList.add("material-icons");
   removeButton.textContent = "cancel";
   removeButton.style.float = "right";
-  // removeButton.style.color = "red";
+
   removeButton.addEventListener("click", function () {
     // Remove the corresponding list item when clicked
     ingredientsOnHand.removeChild(li);
@@ -214,9 +223,6 @@ addButton.addEventListener("click", function () {
     allIngredients = ingredientsArray;
     allIngredients = ingredientsArray.join(",");
     advancedApiUrl = `HTTPS://www.thecocktaildb.com/api/json/v2/9973533/filter.php?i=${handleApiUrlSpaces(allIngredients)}`;
-    console.log(ingredientsArray);
-
-
   });
 
   // Add a space between the ingredient and the remove button
@@ -245,8 +251,6 @@ showButton.addEventListener("click", function () {
   getMultiFactor();
 });
 
-
-
 // Makes API call for ingredient inputs
 function getMultiFactor() {
 
@@ -254,7 +258,6 @@ function getMultiFactor() {
   fetch(advancedApiUrl)
     .then(response => response.json())
     .then(data => {
-      console.log("multifactor", data);
       if (data.drinks === "None Found") {
         centerContent.textContent = "Please simplify or alter your ingredients. There are no drinks made with all of your ingredients."
         return;
@@ -262,7 +265,6 @@ function getMultiFactor() {
       centerContent.textContent = "";
       displayDrinkRecipeUl(data);
     });
-
 };
 
 // Finds spaces in ingredient inputs and replaces with underscores
@@ -277,3 +279,89 @@ function handleApiUrlSpaces(str) {
   };
   return newstr;
 };
+
+// Array to store saved drinks in local storage
+var savedCocktailsArr = [];
+
+// Sets array to local storage
+function saveMyCocktails () {
+  localStorage.setItem("savedCocktailsArr", JSON.stringify(savedCocktailsArr));
+};
+
+// Gets/updates array with new info
+function getMyCocktails() {
+  var update = JSON.parse(localStorage.getItem("savedCocktailsArr"));
+
+  if (update) {
+    savedCocktailsArr = update;
+  };
+};
+
+getMyCocktails();
+
+function displayMyCocktails() {
+  var searchItemUl = document.getElementById("dropdown1");
+  console.log(savedCocktailsArr);
+
+  searchItemUl.innerHTML = "";
+
+  for (var i = 0; i < savedCocktailsArr.length; i++) {
+
+    var searchItem = document.createElement("li");
+    searchItem.textContent = savedCocktailsArr[i];
+
+    searchItemUl.appendChild(searchItem);
+
+    searchItem.addEventListener("click", function (e) {
+
+      var drink = e.target.textContent;
+
+      fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
+        .then(response => response.json())
+        .then(data => {
+        // Handle the response data
+        console.log(data); // You can modify this to do something with the data
+
+      displayDrinkRecipeUl(data);
+      });
+    });
+  };
+};
+
+displayMyCocktails();
+
+
+
+// var myCocktailsLink = document.getElementById("my-cocktails");
+
+// function displayMyCocktails() {
+  
+//   myCocktailsLink.addEventListener("click", function() {
+//     var myCocktailsArr = [];
+
+//     for (var i = 0; i < savedCocktailsArr.length; i++) {
+//     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${savedCocktailsArr[i]}`)
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log(data);
+//         for (var i = 0; i < savedCocktailsArr.length; i ++) {
+//           var obj = {};
+//           // if (myCocktailsArr.includes(data.drinks[0])) {
+//           //   myCocktailsArr = myCocktailsArr;
+//           // } else {
+//           //   myCocktailsArr.push(data.drinks[0]);
+//           // };
+//           obj = data;
+//           console.log("this", obj);
+//           myCocktailsArr.push(obj);
+//         };
+//         console.log(myCocktailsArr);
+        
+//       });
+//     };
+//     console.log(myCocktailsArr);
+//     displayDrinkRecipeUl(...myCocktailsArr);
+//   });
+// };
+
+// displayMyCocktails();
