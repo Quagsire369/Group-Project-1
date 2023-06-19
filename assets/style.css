@@ -22,3 +22,17 @@ blockquote {
   flex-wrap: wrap;
   min-height: 100vh;  
 }
+.top-buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#ingredient-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+#restart-button {
+  margin-left: 10px;
+}

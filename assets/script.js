@@ -175,10 +175,21 @@ function displayDrinkRecipe(data) {
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
 var ingredientsOnHand = document.getElementById("shopping-list");
+var restartButton = document.getElementById("restart-button")
 
 // Added ingredients array
 var ingredientsArray = [];
 var allIngredients = ingredientsArray;
+
+document.addEventListener('DOMContentLoaded', function() {
+  restartButton.addEventListener('click', function() {
+    console.log(restartButton);
+    ingredientsOnHand.innerHTML = '';
+    ingredientsArray.length = 0;
+    allIngredients = '';
+    advancedApiUrl = '';
+  });
+});
 
 // Add event listener to the button
 addButton.addEventListener("click", function () {
