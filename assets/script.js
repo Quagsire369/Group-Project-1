@@ -6,6 +6,12 @@ var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
 
+//side bar nav initialzation
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {edge:"right"});
+});
+
 // Dropdown initialization on click
 $(".dropdown-trigger").dropdown({hover: false});
 
@@ -99,7 +105,7 @@ function displayDrinkRecipeUl(data) {
 
           displayDrinkRecipe(data);
 
-        $('.material-icons').on('click', function() {
+        $(".material-icons").on('click', function() {
           
           if (savedCocktailsArr.includes(`${drink}`)) {
             savedCocktailsArr = savedCocktailsArr;
@@ -162,6 +168,8 @@ function displayDrinkRecipe(data) {
   var myCocktailIcon= document.createElement("i");
   myCocktailIcon.textContent = "add";
   myCocktailIcon.classList.add("material-icons");
+  myCocktailIcon.setAttribute("id", "my-cocktail-button")
+
 
   myCocktailBtn.appendChild(myCocktailIcon);
   ingredientContainer.append(myCocktailBtn);
@@ -175,10 +183,21 @@ function displayDrinkRecipe(data) {
 var ingredientInput = document.getElementById("ingredient-input");
 var addButton = document.getElementById("add-button");
 var ingredientsOnHand = document.getElementById("shopping-list");
+var restartButton = document.getElementById("restart-button")
 
 // Added ingredients array
 var ingredientsArray = [];
 var allIngredients = ingredientsArray;
+
+document.addEventListener('DOMContentLoaded', function() {
+  restartButton.addEventListener('click', function() {
+    console.log(restartButton);
+    ingredientsOnHand.innerHTML = '';
+    ingredientsArray.length = 0;
+    allIngredients = '';
+    advancedApiUrl = '';
+  });
+});
 
 // Add event listener to the button
 addButton.addEventListener("click", function () {
@@ -312,9 +331,31 @@ function displayMyCocktails() {
 
     searchItemUl.appendChild(searchItem);
 
-    searchItem.addEventListener("click", function (e) {
+    // remove button for myCocktail
+    // var btnContainer = document.createElement("div");
+    // searchItemUl.appendChild(btnContainer);
+    // var btnContainer = document.createElement("div");
+    // var removeMyCocktailBtn = document.createElement("i");
+    // removeMyCocktailBtn.classList.add("material-icons", "right");
+    // removeMyCocktailBtn.textContent = "remove_circle";
+    // btnContainer.append(removeMyCocktailBtn)
+    // searchItem.appendChild(btnContainer);
 
+    searchItem.addEventListener("click", function (e) {
+      // changed the drink variable to exclude the nested span with childNodes
       var drink = e.target.textContent;
+      // console.log("this should say remove circle" ,drink);
+
+      // var index = savedCocktailsArr.indexOf(searchItem);
+      // if (drink === "remove_circle") {
+      //   savedCocktailsArr.splice(index, 1);
+      //   console.log("this is what we are looking at", savedCocktailsArr);
+      //   console.log("this is index", index)
+      //   console.log("search item", searchItem.textContent)
+      //   saveMyCocktails();
+      //   getMyCocktails();
+      // };
+      
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
