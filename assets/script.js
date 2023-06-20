@@ -99,7 +99,7 @@ function displayDrinkRecipeUl(data) {
 
           displayDrinkRecipe(data);
 
-        $('.material-icons').on('click', function() {
+        $("#my-cocktail-button").on('click', function() {
           
           if (savedCocktailsArr.includes(`${drink}`)) {
             savedCocktailsArr = savedCocktailsArr;
@@ -162,6 +162,8 @@ function displayDrinkRecipe(data) {
   var myCocktailIcon= document.createElement("i");
   myCocktailIcon.textContent = "add";
   myCocktailIcon.classList.add("material-icons");
+  myCocktailIcon.setAttribute("id", "my-cocktail-button")
+
 
   myCocktailBtn.appendChild(myCocktailIcon);
   ingredientContainer.append(myCocktailBtn);
@@ -323,9 +325,20 @@ function displayMyCocktails() {
 
     searchItemUl.appendChild(searchItem);
 
-    searchItem.addEventListener("click", function (e) {
+    // remove button for myCocktail
+    // var btnContainer = document.createElement("div");
+    // searchItemUl.appendChild(btnContainer);
+    var btnContainer = document.createElement("span");
+    var removeMyCocktailBtn = document.createElement("i");
+    removeMyCocktailBtn.classList.add("material-icons", "right");
+    removeMyCocktailBtn.textContent = "remove_circle";
+    btnContainer.append(removeMyCocktailBtn)
+    searchItem.appendChild(btnContainer);
 
-      var drink = e.target.textContent;
+    searchItem.addEventListener("click", function (e) {
+      // changed the drink variable to exclude the nested span with childNodes
+      var drink = e.target.childNodes[0].textContent;
+      console.log(drink);
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
