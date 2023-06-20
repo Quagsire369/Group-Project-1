@@ -81,7 +81,7 @@ function displayDrinkRecipeUl(data) {
 
     var drinkButtonHeader = document.createElement("div");
     drinkButtonHeader.textContent = data.drinks[i].strDrink;
-    drinkButtonHeader.classList.add("collapsible-header");
+    drinkButtonHeader.classList.add("collapsible-header", "deep-purple", "lighten-2", "white-text");
 
     var drinkButtonBody = document.createElement("div");
     drinkButtonBody.classList.add("collapsible-body");
@@ -96,6 +96,7 @@ function displayDrinkRecipeUl(data) {
     var instances = M.Collapsible.init(elems, {});
 
     drinkButtonHeader.addEventListener("click", function (e) {
+      
       var drink = e.target.textContent;
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
@@ -105,7 +106,8 @@ function displayDrinkRecipeUl(data) {
 
           displayDrinkRecipe(data);
 
-        $(".material-icons").on('click', function() {
+        $(".add-to-my-cocktails").on('click', function(e) {
+          e.stopPropagation(); // Stop event bubbling
           
           if (savedCocktailsArr.includes(`${drink}`)) {
             savedCocktailsArr = savedCocktailsArr;
@@ -167,7 +169,7 @@ function displayDrinkRecipe(data) {
 
   var myCocktailIcon= document.createElement("i");
   myCocktailIcon.textContent = "add";
-  myCocktailIcon.classList.add("material-icons");
+  myCocktailIcon.classList.add("material-icons", "add-to-my-cocktails");
   myCocktailIcon.setAttribute("id", "my-cocktail-button")
 
 
