@@ -99,7 +99,7 @@ function displayDrinkRecipeUl(data) {
 
           displayDrinkRecipe(data);
 
-        $("#my-cocktail-button").on('click', function() {
+        $(".material-icons").on('click', function() {
           
           if (savedCocktailsArr.includes(`${drink}`)) {
             savedCocktailsArr = savedCocktailsArr;
@@ -328,17 +328,28 @@ function displayMyCocktails() {
     // remove button for myCocktail
     // var btnContainer = document.createElement("div");
     // searchItemUl.appendChild(btnContainer);
-    var btnContainer = document.createElement("span");
-    var removeMyCocktailBtn = document.createElement("i");
-    removeMyCocktailBtn.classList.add("material-icons", "right");
-    removeMyCocktailBtn.textContent = "remove_circle";
-    btnContainer.append(removeMyCocktailBtn)
-    searchItem.appendChild(btnContainer);
+    // var btnContainer = document.createElement("div");
+    // var removeMyCocktailBtn = document.createElement("i");
+    // removeMyCocktailBtn.classList.add("material-icons", "right");
+    // removeMyCocktailBtn.textContent = "remove_circle";
+    // btnContainer.append(removeMyCocktailBtn)
+    // searchItem.appendChild(btnContainer);
 
     searchItem.addEventListener("click", function (e) {
       // changed the drink variable to exclude the nested span with childNodes
-      var drink = e.target.childNodes[0].textContent;
-      console.log(drink);
+      var drink = e.target.textContent;
+      // console.log("this should say remove circle" ,drink);
+
+      // var index = savedCocktailsArr.indexOf(searchItem);
+      // if (drink === "remove_circle") {
+      //   savedCocktailsArr.splice(index, 1);
+      //   console.log("this is what we are looking at", savedCocktailsArr);
+      //   console.log("this is index", index)
+      //   console.log("search item", searchItem.textContent)
+      //   saveMyCocktails();
+      //   getMyCocktails();
+      // };
+      
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
