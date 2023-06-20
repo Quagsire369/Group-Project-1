@@ -20,18 +20,26 @@
     <nav>
         <div class="nav-wrapper deep-purple">
             <img src="./assets/images/v2.PNG" class="brand-logo center" height="60px"></img>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger show-on-large right"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right">
 
-                <li id="my-cocktails"><a class="dropdown-trigger" href="#!" data-target="dropdown1">My Cocktails<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li ><a class= "modal-trigger" href="#modal1">Help</a></li>
+                <!-- <li id="my-cocktails"><a class="dropdown-trigger" href="#!" data-target="dropdown1">My Cocktails<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="modal-trigger" href="#modal1">Help</a></li> -->
+                
+            </ul>
 
+            <ul class="sidenav right" id="mobile-demo">
+                <li id="my-cocktails"><a class="dropdown-trigger" href="#!" data-target="dropdown1">My Cocktails<i
+                            class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="modal-trigger" href="#modal1">Help</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="container" style="min-height: 100vh; width: 100vw;">
+    <div style="min-height: 100vh; width: 100vw;">
         <div class="row">
-            <div class="col s3 grey lighten-2 " style="min-height: 100vh;">
+            <div class="col s12 m3 l3 grey lighten-2 " style="min-height: 100vh;">
                 <!-- Left column content -->
 
                 <h4 class="center-align">Ingredients</h4>
@@ -40,17 +48,17 @@
                     <input type="text" id="ingredient-input" placeholder="Enter an ingredient">
                     <div class="top-buttons">
                         <button id="add-button" class="waves-effect waves-light btn-small">Add</button>
-                        <button id="restart-button" class="waves-effect waves-light btn-small">Restart</button>
+                        <button id="restart-button" class="waves-effect waves-light btn-small">Clear</button>
                     </div>
-                    <button id="show-button" class="waves-effect waves-light btn-small">Show Possible Drinks</button>
+                    <button id="show-button" class="waves-effect waves-light btn-small">Show Drinks</button>
                     <ul id="shopping-list"></ul>
                 </section>
                 <div class="options-container col 12 col s12">
 
                 </div>
-                
+
             </div>
-            <div class="col s6 white " style="min-height: 100vh;">
+            <div class="col s12 m6 l6 white " style="min-height: 100vh;">
                 <!-- Center column content -->
                 <div>
                     <input type="text" id="drink-search" placeholder="Enter a drink">
@@ -69,13 +77,13 @@
                 <h4 id="centerContent" class="center-align">Results</h4>
                 <div class="drink-recipe-container col s12"></div>
             </div>
-            <div class="col s3 grey lighten-2 halign-wrapper" style="min-height: 100vh;">
+            <div class="col s12 m3 l3 grey lighten-2 halign-wrapper" style="min-height: 100vh;">
                 <!-- Right column content -->
                 <h4 class="center-align">Ice-Breaker</h4>
                 <p>Have you ever been at a party and ran out of interesting things to talk about? We have you covered
                     with our handy random fact generator! Take it for a spin and you will be the life of the party!!!
                 </p>
-                <button id="generate-fact" class="waves-effect waves-light btn-small">Click for an Ice-Breaker!</button>
+                <button id="generate-fact" class="waves-effect waves-light btn-small">Click!</button>
                 <div class="fact-container"></div>
                 <img src="./assets/images/cube.PNG" class="brand-logo center" height="65px"></img>
             </div>
