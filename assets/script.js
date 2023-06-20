@@ -6,6 +6,12 @@ var spiritSearchButton = document.getElementById('spirit-search-button');
 var drinkapivar;
 var advancedApiUrl;
 
+//side bar nav initialzation
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, {edge:"right"});
+});
+
 // Dropdown initialization on click
 $(".dropdown-trigger").dropdown({hover: false});
 
