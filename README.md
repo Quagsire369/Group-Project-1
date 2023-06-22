@@ -32,4 +32,4 @@ If you like a particular drink, you may click the pulsing + button after expandi
 
 The project can be used to practice styling pages via Materialize, and using JavaScript and JQuery for traversing the DOM, selecting elements in the DOM for manipulation, adding Event Listeners (specifically "click" and " events), running functions as a result of user clicks, making API calls, targeting specific data within an API response, setting strings to local storage, and retrieving objects from local storage.
 
-![alt text]()
+![Screenshot of app](./assets/Images/CocktailappScreenshot.png)
