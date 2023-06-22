@@ -30,9 +30,8 @@ drinkSearchButton.addEventListener("click", function (drink) {
 
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
     .then(response => response.json())
-    .then(data => {
-      // Handle the response data
-      console.log(data); // You can modify this to do something with the data
+    .then(data => { // Handle the response data
+      
       displayDrinkRecipeUl(data);
     })
     .catch(error => {
@@ -50,7 +49,7 @@ generateFact.addEventListener("click", function () {
   fetch('https://uselessfacts.jsph.pl/api/v2/facts/random')
     .then(response => response.json())
     .then(data => {
-      console.log(data);
+
       displayFact(data);
     })
     .catch(error => {
@@ -101,8 +100,7 @@ function displayDrinkRecipeUl(data) {
       // Fetch for drink by name
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
-        .then(data => {
-          console.log(data);
+        .then(data => { // Handle the response data
 
           displayDrinkRecipe(data);
           //Event listner for my cocktail button
@@ -113,7 +111,6 @@ function displayDrinkRecipeUl(data) {
             savedCocktailsArr = savedCocktailsArr;
           } else {
           savedCocktailsArr.push(`${drink}`);
-          console.log(savedCocktailsArr);
           }
           saveMyCocktails(data);
           getMyCocktails();
@@ -193,7 +190,6 @@ var allIngredients = ingredientsArray;
 
 document.addEventListener('DOMContentLoaded', function() {
   restartButton.addEventListener('click', function() {
-    console.log(restartButton);
     ingredientsOnHand.innerHTML = '';
     ingredientsArray.length = 0;
     allIngredients = '';
@@ -275,7 +271,6 @@ showButton.addEventListener("click", function () {
 // Makes API call for ingredient inputs
 function getMultiFactor() {
 
-  console.log(advancedApiUrl);
   fetch(advancedApiUrl)
     .then(response => response.json())
     .then(data => {
@@ -322,7 +317,6 @@ getMyCocktails();
 
 function displayMyCocktails() {
   var searchItemUl = document.getElementById("dropdown1");
-  console.log(savedCocktailsArr);
 
   searchItemUl.innerHTML = "";
 
@@ -333,37 +327,13 @@ function displayMyCocktails() {
 
     searchItemUl.appendChild(searchItem);
 
-    // remove button for myCocktail
-    // var btnContainer = document.createElement("div");
-    // searchItemUl.appendChild(btnContainer);
-    // var btnContainer = document.createElement("div");
-    // var removeMyCocktailBtn = document.createElement("i");
-    // removeMyCocktailBtn.classList.add("material-icons", "right");
-    // removeMyCocktailBtn.textContent = "remove_circle";
-    // btnContainer.append(removeMyCocktailBtn)
-    // searchItem.appendChild(btnContainer);
-
     searchItem.addEventListener("click", function (e) {
       // changed the drink variable to exclude the nested span with childNodes
-      var drink = e.target.textContent;
-      // console.log("this should say remove circle" ,drink);
-
-      // var index = savedCocktailsArr.indexOf(searchItem);
-      // if (drink === "remove_circle") {
-      //   savedCocktailsArr.splice(index, 1);
-      //   console.log("this is what we are looking at", savedCocktailsArr);
-      //   console.log("this is index", index)
-      //   console.log("search item", searchItem.textContent)
-      //   saveMyCocktails();
-      //   getMyCocktails();
-      // };
-      
+      var drink = e.target.textContent;      
 
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
-        .then(data => {
-        // Handle the response data
-        console.log(data); // You can modify this to do something with the data
+        .then(data => { // Handle the response data
 
       displayDrinkRecipeUl(data);
       });
@@ -372,39 +342,3 @@ function displayMyCocktails() {
 };
 
 displayMyCocktails();
-
-
-
-// var myCocktailsLink = document.getElementById("my-cocktails");
-
-// function displayMyCocktails() {
-  
-//   myCocktailsLink.addEventListener("click", function() {
-//     var myCocktailsArr = [];
-
-//     for (var i = 0; i < savedCocktailsArr.length; i++) {
-//     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${savedCocktailsArr[i]}`)
-//       .then(response => response.json())
-//       .then(data => {
-//         console.log(data);
-//         for (var i = 0; i < savedCocktailsArr.length; i ++) {
-//           var obj = {};
-//           // if (myCocktailsArr.includes(data.drinks[0])) {
-//           //   myCocktailsArr = myCocktailsArr;
-//           // } else {
-//           //   myCocktailsArr.push(data.drinks[0]);
-//           // };
-//           obj = data;
-//           console.log("this", obj);
-//           myCocktailsArr.push(obj);
-//         };
-//         console.log(myCocktailsArr);
-        
-//       });
-//     };
-//     console.log(myCocktailsArr);
-//     displayDrinkRecipeUl(...myCocktailsArr);
-//   });
-// };
-
-// displayMyCocktails();
