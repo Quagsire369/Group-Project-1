@@ -12,7 +12,7 @@ Utilizing API calls to retreive data.
 Manipulating dynamically created elements to display data from an API call response.
 Saving/accessing updates to Local Storage
 
-This project can be found here:
+
 
 ## Contributors
 
@@ -22,7 +22,8 @@ edwinalban
 
 ## Installation
 
-N/A
+This project can be found here:
+https://quagsire369.github.io/Whats_On_Hand_Cocktail_Search/
 
 ## Usage
 
