@@ -42,7 +42,7 @@ drinkSearchButton.addEventListener("click", function (drink) {
     });
 });
 
-
+// Generate fact DOM Element
 var generateFact = document.getElementById("generate-fact");
 
 // API call for random fact
@@ -98,14 +98,14 @@ function displayDrinkRecipeUl(data) {
     drinkButtonHeader.addEventListener("click", function (e) {
       
       var drink = e.target.textContent;
-
+      // Fetch for drink by name
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
         .then(response => response.json())
         .then(data => {
           console.log(data);
 
           displayDrinkRecipe(data);
-
+          //Event listner for my cocktail button
         $(".add-to-my-cocktails").on('click', function(e) {
           e.stopPropagation(); // Stop event bubbling
           
